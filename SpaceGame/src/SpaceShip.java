@@ -8,12 +8,26 @@ public class SpaceShip extends Actor {
     private int y;
     private int shootCooldown;
     private int health;
+    private boolean attacked =false;
+    private HeartDisplay heartDisplay;
+    //private Waves waves;
+    private int speed = 8;
+
+    private static int score;
     boolean a=true;
     public SpaceShip(int x, int y){
         this.x = x;
         this.y =y;
         setImage(new GreenfootImage("./ufo.png"));
-        this.health = 3;
+        this.health = 5;
+
+        heartDisplay = new HeartDisplay(health);
+        //waves = new Waves();
+
+    }
+
+    public static void increaseScore(){
+        score ++;
     }
 
 
@@ -25,35 +39,40 @@ public class SpaceShip extends Actor {
         health-=strength;
         if(this.health <=0){
             getWorld().removeObject(this);
+            Gameover gameover = new Gameover();
+            Greenfoot.setWorld(gameover);
         }
+        attacked = true;
     }
 
     @Override
     public void act() {
         shootCooldown--;
-        Waves waves = new Waves();
+        getWorld().addObject(heartDisplay,0,0);
+        getWorld().showText("Score: "+ score, 40, 120);
+
+        if(attacked){
+            heartDisplay.decreaseAmount();
+            attacked = false;
+        }
 
         if(a){
-            getWorld().addObject(waves,0,0);
+            //getWorld().addObject(waves,0,0);
             a= false;
         }
 
         if(Greenfoot.isKeyDown("a")){
-            move(-8);
-            x+= -8;
+            setLocation(getX()-speed,getY());
         }
 
         if(Greenfoot.isKeyDown("d")){
-            move(8);
-            x += 8;
+            setLocation(getX()+speed,getY());
         }
         if(Greenfoot.isKeyDown("w")){
-             setLocation(x, y -8);
-             y+= -8;
+            setLocation(getX(),getY()-speed);
         }
         if(Greenfoot.isKeyDown("s")){
-            setLocation(x, y +8);
-            y +=8;
+            setLocation(getX(),getY()+speed);
         }
 
         if(Greenfoot.isKeyDown("up")){
@@ -75,10 +94,11 @@ public class SpaceShip extends Actor {
         }
     }
 
+
     private void shootBullet(String direction){
         if(shootCooldown<=0){
-            Bullet bullet1 = new Bullet(x-6,y-30, direction);
-            getWorld().addObject(bullet1,x-6,y-30);
+            Bullet bullet1 = new Bullet(getX()-6,getY()-30, direction);
+            getWorld().addObject(bullet1,getX()-6,getY()-30);
             shootBulletCooldown();
         }
     }

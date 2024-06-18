@@ -7,5 +7,8 @@ public class World extends greenfoot.World {
         setBackground(new GreenfootImage("./space.jpg"));
         SpaceShip s = new SpaceShip(700, 500);
         addObject(s,700,500);
+
+        Waves waves = new Waves();
+        addObject(waves,0,0);
     }
 }

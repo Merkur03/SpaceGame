@@ -8,8 +8,10 @@ public class Waves extends Actor {
 
     private int cooldown;
     private int amount;
+    private int[] monster;
+    private int waveNumber=0;
     public Waves(){
-
+        monster = new int[]{10,20,30,40};
     }
 
     private void spawnCooldown(){
@@ -23,22 +25,28 @@ public class Waves extends Actor {
         return  rx;
     }
 
-
+    private void increaseWave(){
+        waveNumber++;
+    }
 
     @Override
     public void act(){
-
+        getWorld().showText("Wave: "+ (waveNumber +1), 40, 100);
         cooldown--;
 
-        if(cooldown<=0 && amount <= 10){
-            int rx = location();
-            int y = 10;
-            Monster monster = new Monster(rx,y);
-            getWorld().addObject(monster,rx, y);
+        if(cooldown<=0 && waveNumber<1){
+            if(amount < monster[waveNumber]){
+                int rx = location();
+                int y = 10;
+                Monster monster = new Monster();
+                getWorld().addObject(monster,rx, y);
+                spawnCooldown();
 
-            spawnCooldown();
-
-            amount ++;
+                amount ++;
+            }
+            else{
+                increaseWave();
+            }
         }
     }
 }

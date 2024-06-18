@@ -10,6 +10,7 @@ public class Bullet extends Actor {
     private int y;
     private int strength;
     private String direction;
+    int score = 0;
 
     public Bullet(int x, int y, String direction) {
         this.x = x;

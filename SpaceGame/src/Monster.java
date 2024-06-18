@@ -7,27 +7,40 @@ public class Monster extends Actor {
     private int y;
     private int health;
     private int strength;
+    private int score;
+    private String direction;
 
-    public Monster(int x, int y){
-        this.x = x;
-        this.y = y;
+    public Monster(){
         setImage(new GreenfootImage("./monster.png"));
         this.health = 2;
         this.strength = 1;
+        direction = "down";
     }
 
     public void attacked(int strength){
         health -= strength;
         if(health <=0){
             getWorld().removeObject(this);
+            SpaceShip.increaseScore();
         }
     }
 
+    private void move(){
+        switch (direction){
+            case "down":{
+                setLocation(getX(), getY() +1);
+                break;
+            }
+            case"up":{
+                setLocation(getX(), getY() -1);
+                break;
+            }
+        }
+    }
 
     @Override
     public void act(){
-        setLocation(x, y +1);
-        y+= 1;
+        move();
 
         if(this.isAtEdge()){
             getWorld().removeObject(this);
