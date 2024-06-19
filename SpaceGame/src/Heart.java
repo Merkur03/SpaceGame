@@ -10,7 +10,6 @@ public class Heart extends Actor {
 
     @Override
     public void act() {
-        //getWorld().addObject(this, this.getLocationsX(3), this.locationsY);
     }
 
 

@@ -7,12 +7,8 @@ public class HeartDisplay extends Actor {
 
     private int hearts;
     private int currentHearts;
-
-    //[heart][0]-> x.cord, [1]-> y.cord;
     private int locationsY;
     private int[] locationsX;
-    private Heart[] heart;
-
     private List<Heart> heartList;
 
     public HeartDisplay(int amount) {
@@ -32,13 +28,12 @@ public class HeartDisplay extends Actor {
             this.currentHearts++;
         }
 
-
         if(currentHearts>hearts){
             getWorld().removeObject(heartList.get(hearts));
         }
     }
 
-    public void setHearts(){
+    public void removeHearts(){
         hearts --;
     }
 

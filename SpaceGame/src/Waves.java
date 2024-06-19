@@ -34,7 +34,7 @@ public class Waves extends Actor {
         getWorld().showText("Wave: "+ (waveNumber +1), 40, 100);
         cooldown--;
 
-        if(cooldown<=0 && waveNumber<1){
+        if(cooldown<=0 && waveNumber<3){
             if(amount < monster[waveNumber]){
                 int rx = location();
                 int y = 10;

@@ -4,33 +4,22 @@ import greenfoot.GreenfootImage;
 
 public class SpaceShip extends Actor {
 
-    private int x;
-    private int y;
     private int shootCooldown;
-    private int health;
-    private boolean attacked =false;
+    private boolean attacked;
     private HeartDisplay heartDisplay;
-    //private Waves waves;
-    private int speed = 8;
-
+    private int health;
+    private int speed;
     private static int score;
-    boolean a=true;
-    public SpaceShip(int x, int y){
-        this.x = x;
-        this.y =y;
+    public SpaceShip(){
         setImage(new GreenfootImage("./ufo.png"));
         this.health = 5;
-
+        this.speed = 8;
         heartDisplay = new HeartDisplay(health);
-        //waves = new Waves();
-
     }
 
     public static void increaseScore(){
         score ++;
     }
-
-
     private void shootBulletCooldown(){
         shootCooldown = 25;
     }
@@ -39,7 +28,7 @@ public class SpaceShip extends Actor {
         health-=strength;
         if(this.health <=0){
             getWorld().removeObject(this);
-            Gameover gameover = new Gameover();
+            GameOver gameover = new GameOver();
             Greenfoot.setWorld(gameover);
         }
         attacked = true;
@@ -54,11 +43,6 @@ public class SpaceShip extends Actor {
         if(attacked){
             heartDisplay.decreaseAmount();
             attacked = false;
-        }
-
-        if(a){
-            //getWorld().addObject(waves,0,0);
-            a= false;
         }
 
         if(Greenfoot.isKeyDown("a")){
@@ -94,10 +78,9 @@ public class SpaceShip extends Actor {
         }
     }
 
-
     private void shootBullet(String direction){
         if(shootCooldown<=0){
-            Bullet bullet1 = new Bullet(getX()-6,getY()-30, direction);
+            Bullet bullet1 = new Bullet(direction);
             getWorld().addObject(bullet1,getX()-6,getY()-30);
             shootBulletCooldown();
         }

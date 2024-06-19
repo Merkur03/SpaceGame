@@ -3,12 +3,9 @@ import greenfoot.GreenfootImage;
 
 public class Monster extends Actor {
 
-    private int x;
-    private int y;
     private int health;
-    private int strength;
-    private int score;
-    private String direction;
+    private final int strength;
+    private final String direction;
 
     public Monster(){
         setImage(new GreenfootImage("./monster.png"));

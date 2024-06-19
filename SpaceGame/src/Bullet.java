@@ -6,15 +6,11 @@ import java.rmi.MarshalledObject;
 
 public class Bullet extends Actor {
 
-    private int x;
-    private int y;
     private int strength;
-    private String direction;
+    private final String direction;
     int score = 0;
 
-    public Bullet(int x, int y, String direction) {
-        this.x = x;
-        this.y = y;
+    public Bullet(String direction) {
         setImage(new GreenfootImage("./bullet.png"));
         this.strength = 1;
         this.direction = direction;
